@@ -120,39 +120,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (mTempWhich){
                     case 0:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_COMMON_LADY;
                         break;
                     case 1:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_COMMON_MAN;
                         break;
                     case 2:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_YUEYU_LADY;
                         break;
                     case 3:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_TAIWAN_LADY;
                         break;
                     case 4:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_SICHUAN_LADY;
                         break;
                     case 5:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_DONGBEI_LADY;
                         break;
                     case 6:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_HENAN_MAN;
                         break;
                     case 7:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_HUNAN_MAN;
                         break;
                     case 8:
-                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        itemFont.setText(LanguageConstants.STRINGS[mTempWhich]);
                         changedLanguage=LanguageConstants.MANDARIN_SHANXI_LADY;
                         break;
                 }
