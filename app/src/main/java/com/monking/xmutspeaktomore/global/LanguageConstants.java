@@ -1,12 +1,13 @@
 package com.monking.xmutspeaktomore.global;
 
 /**
- * 储存语种字符串
+ * 储存语种字符串,9种方言。
  * Created by MonKing on 2016/11/22.
  */
 
 public  class LanguageConstants {
-
+    public static final String[] STRINGS={"普通话 (女)","普通话 (男)","粤语 （女)",
+            "台湾普通话 （女）","四川话 （女)","东北话 (女)","河南话 (女)","湖南话 (男)","陕西话 (女)"};
     //普通话 女
     public static final String MANDARIN_COMMON_LADY="xiaoyan";
     //普通话 男

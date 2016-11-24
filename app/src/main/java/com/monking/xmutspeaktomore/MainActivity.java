@@ -1,9 +1,12 @@
 package com.monking.xmutspeaktomore;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -15,28 +18,34 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.monking.xmutspeaktomore.bean.ListenBean;
+import com.monking.xmutspeaktomore.global.LanguageConstants;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button listenBtn,backBtn,speakBtn;
-    private TextView show_tv;
-    private String strAll = "";
-    private String Str_speak="";
+    private Button listenBtn,backBtn,speakBtn;//底部栏三个空间绑定
+    private TextView show_tv,itemFont;//字符串输出控件,标题栏
+    private String strAll = "";//用于储存相关的字符串输出数据
+    private String Str_speak="",changedLanguage="xiaoyan";//用于储存相关的语音合成字符串数据,changedLanguage方言选择变量
+    private ImageButton selectBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //初始化讯飞语音配置对象
-        // 将“12345678”替换成您申请的APPID，申请地址：http://open.voicecloud.cn
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5833f00b");
-
+        //绑定控件
         listenBtn = (Button) findViewById(R.id.listen_btn);
         speakBtn= (Button) findViewById(R.id.speak_btn);
         backBtn= (Button) findViewById(R.id.back_btn);
         show_tv = (TextView) findViewById(R.id.show_text);
+        selectBtn = (ImageButton) findViewById(R.id.select_language_btn);
+        itemFont= (TextView) findViewById(R.id.item_font);
+        //绑定监听事件
+        itemFont.setText(LanguageConstants.STRINGS[0]);
         listenBtn.setOnClickListener(this);
         speakBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+        selectBtn.setOnClickListener(this);
     }
 
     @Override
@@ -56,18 +65,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 backBtn.setVisibility(View.VISIBLE);
                 speakBtn.setVisibility(View.VISIBLE);
                 break;
-
+            /**
+             * 语音合成输出的代码
+             */
             case R.id.speak_btn:
                 //1.创建SpeechSynthesizer对象, 第二个参数：本地合成时传InitListener
                 SpeechSynthesizer mTts= SpeechSynthesizer.createSynthesizer(this, null);
                 //2.合成参数设置，详见《科大讯飞MSC API手册(Android)》SpeechSynthesizer 类
-                mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");//设置发音人
+                mTts.setParameter(SpeechConstant.VOICE_NAME, changedLanguage);//设置发音人
                 mTts.setParameter(SpeechConstant.SPEED, "50");//设置语速
                 mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
                 mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
                 //3.开始合成
                 mTts.startSpeaking(Str_speak, null);
                 break;
+            /**
+             * 返回键代码
+             */
             case R.id.back_btn:
                 //还原初始状态
                 listenBtn.setVisibility(View.VISIBLE);
@@ -76,7 +90,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Str_speak="";
                 strAll = "";
                 break;
+            /**
+             * 方言选择按钮控件
+             */
+            case R.id.select_language_btn:
+                selectLanguageChanged();
+                break;
         }
+    }
+
+    /**
+     * 方言修改的方法 跳出alertDialog
+     */
+    private int mCurrentSize=0;
+    private int mTempWhich;
+    private void selectLanguageChanged() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("选择播放的方言");
+        builder.setSingleChoiceItems(LanguageConstants.STRINGS, mCurrentSize, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mTempWhich=i;
+            }
+        });
+        builder.setNegativeButton("取消",null);
+        builder.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                switch (mTempWhich){
+                    case 0:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_COMMON_LADY;
+                        break;
+                    case 1:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_COMMON_MAN;
+                        break;
+                    case 2:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_YUEYU_LADY;
+                        break;
+                    case 3:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_TAIWAN_LADY;
+                        break;
+                    case 4:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_SICHUAN_LADY;
+                        break;
+                    case 5:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_DONGBEI_LADY;
+                        break;
+                    case 6:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_HENAN_MAN;
+                        break;
+                    case 7:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_HUNAN_MAN;
+                        break;
+                    case 8:
+                        itemFont.setText("当前选择语言是"+LanguageConstants.STRINGS[mTempWhich]);
+                        changedLanguage=LanguageConstants.MANDARIN_SHANXI_LADY;
+                        break;
+                }
+                mCurrentSize=mTempWhich;
+            }
+        });
+        builder.show();
     }
 
     /**
