@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 方言修改的方法 跳出alertDialog
      */
-    private int mCurrentSize=0;
-    private int mTempWhich;
+    private int mCurrentSize=0; //设置默认选项
+    private int mTempWhich;//获得item位置值
     private void selectLanguageChanged() {
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("选择播放的方言");
@@ -156,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         changedLanguage=LanguageConstants.MANDARIN_SHANXI_LADY;
                         break;
                 }
+                //将默认值改成修改后的值
                 mCurrentSize=mTempWhich;
             }
         });
@@ -174,9 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String str = analysisJson(result);
             //将字符串放进成员变量String里面储存 用于显示
             strAll = strAll + str;
-
-            System.out.println(str);
-            System.out.println("strAll:"+strAll);
             //如果语音录入完毕，则显示文字，并且将字符串赋值给用于发音的字符串Str_speak上。
             if (b = true) {
                 show_tv.setText(strAll);
@@ -223,7 +221,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Gson gson = new Gson();
         String jsonstr = "";
         ListenBean listenBean = gson.fromJson(result, ListenBean.class);
-        jsonstr = listenBean.ws.get(0).cw.get(0).w;
+        int SpeakStringSize=listenBean.ws.size();
+        for (int i = 0; i < SpeakStringSize; i++) {
+            jsonstr = jsonstr+listenBean.ws.get(i).cw.get(0).w;
+        }
         return jsonstr;
     }
 }
