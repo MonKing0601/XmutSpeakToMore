@@ -54,8 +54,30 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:gravity="center"
-            android:text="识别文字显示区"
+            android:text="输入框输入或者语音输入"
             android:textSize="25dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text="文字:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:text=""
+            android:id="@+id/Edit_text_put"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <FrameLayout
@@ -66,7 +88,7 @@
             android:id="@+id/listen_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="语音识别" />
+            android:text="语音输入" />
 
         <LinearLayout
             android:layout_width="match_parent"
